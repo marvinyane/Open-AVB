@@ -164,41 +164,51 @@ static void x_parseWaveFile(media_q_t *pMediaQ)
 
 		AVB_LOGF_INFO("Number of data bytes:%d", wavFileHeader.subChunk2Size);
 
+        AVB_LOGF_ERROR("wavFileHeader.chunkID is %s\n", wavFileHeader.chunkID);
+
 		// Make sure wav file format is supported
 		if (memcmp(wavFileHeader.chunkID, "RIFF", 4) != 0) {
-			AVB_LOGF_ERROR("%s does not appear to be a supported wav file.", pPvtData->pFileName);
+            AVB_LOGF_ERROR("%s 1 does not appear to be a supported wav file.", pPvtData->pFileName);
 			fclose(pPvtData->pFile);
 			pPvtData->pFile = NULL;
 			return;
 		}
+
+        AVB_LOGF_ERROR("wavFileHeader.format is %s\n", wavFileHeader.format);
 
 		if (memcmp(wavFileHeader.format, "WAVE", 4) != 0) {
-			AVB_LOGF_ERROR("%s does not appear to be a supported wav file.", pPvtData->pFileName);
+            AVB_LOGF_ERROR("%s 2 does not appear to be a supported wav file.", pPvtData->pFileName);
 			fclose(pPvtData->pFile);
 			pPvtData->pFile = NULL;
 			return;
 		}
+
+        AVB_LOGF_ERROR("wavFileHeader.subChunk1ID is %s\n", wavFileHeader.subChunk1ID);
 
 		if (memcmp(wavFileHeader.subChunk1ID, "fmt ", 4) != 0) {
-			AVB_LOGF_ERROR("%s does not appear to be a supported wav file.", pPvtData->pFileName);
+            AVB_LOGF_ERROR("%s 3 does not appear to be a supported wav file.", pPvtData->pFileName);
 			fclose(pPvtData->pFile);
 			pPvtData->pFile = NULL;
 			return;
 		}
+#if 0
+        AVB_LOGF_ERROR("wavFileHeader.subChunk2ID is %s\n", wavFileHeader.subChunk2ID);
 
 		if (memcmp(wavFileHeader.subChunk2ID, "data", 4) != 0) {
-			AVB_LOGF_ERROR("%s does not appear to be a supported wav file.", pPvtData->pFileName);
+            AVB_LOGF_ERROR("%s 4 does not appear to be a supported wav file.", pPvtData->pFileName);
 			fclose(pPvtData->pFile);
 			pPvtData->pFile = NULL;
 			return;
 		}
+#endif
 
+        AVB_LOGF_ERROR("wavFileHeader.audioFormat is %d\n", wavFileHeader.audioFormat);
 		if (wavFileHeader.audioFormat != 1) {
-			AVB_LOGF_ERROR("%s does not appear to be a supported wav file.", pPvtData->pFileName);
+            AVB_LOGF_ERROR("%s 5 does not appear to be a supported wav file.", pPvtData->pFileName);
 			fclose(pPvtData->pFile);
 			pPvtData->pFile = NULL;
 			return;
-		}
+        }
 
 		// Give the audio parameters to the mapping module.
 		if (pMediaQ->pMediaQDataFormat) {
@@ -311,6 +321,8 @@ void openavbIntfWavFileCfgCB(media_q_t *pMediaQ, const char *name, const char *v
             AVB_LOG_ERROR("Private interface module data not allocated.");
             return;
         }
+
+        AVB_LOG_ERROR("openavbIntfWavFileCfgCB ----------------------------- \n");
 
         if (strcmp(name, "intf_nv_file_name") == 0) {
             if (pPvtData->pFileName) {

@@ -3828,6 +3828,16 @@ int msrp_init(int msrp_enable, int max_interesting_stream_ids, int enable_prunin
 
 	mrp_lvatimer_fsm(&(MSRP_db->mrp_db), MRP_EVENT_BEGIN);
 
+    // init to declare domain attribute
+    struct msrp_attribute* attrib = msrp_alloc();
+    attrib->type = MSRP_DOMAIN_TYPE;
+    attrib->attribute.domain.SRclassID = 6;
+    attrib->attribute.domain.SRclassPriority = 3;
+    attrib->attribute.domain.SRclassVID = 2;
+   
+    msrp_event(MRP_EVENT_NEW, attrib);
+
+
 	return 0;
 
  abort_alloc:

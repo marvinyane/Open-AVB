@@ -194,11 +194,13 @@ int process_mrp_msg(char *buf, int buflen)
 			domain_class_a_priority = priority;
 			domain_class_a_vid = vid;
 			domain_a_valid = 1;
+            printf("domain a is valid \n");
 		} else {
 			domain_class_b_id = id;
 			domain_class_b_priority = priority;
 			domain_class_b_vid = vid;
 			domain_b_valid = 1;
+            printf("domain b is valid \n");
 		}
 		while ((i < buflen) && (buf[i] != '\n') && (buf[i] != '\0'))
 			i++;
@@ -393,9 +395,11 @@ void *mrp_monitor_thread(void *arg)
 		msg.msg_iov = &iov;
 		msg.msg_iovlen = 1;
 		bytes = recvmsg(control_socket, &msg, 0);
+        printf("received bytes is %d \n", bytes);
 		if (bytes < 0)
 			continue;
 		AVB_LOGF_VERBOSE("Msg: %s", msgbuf);
+        printf("received msg is %s \n", msgbuf);
 		process_mrp_msg(msgbuf, bytes);
 	}
 	free(msgbuf);
@@ -610,7 +614,7 @@ int mrp_get_domain(int *class_a_id, int *a_priority, u_int16_t * a_vid,
 		*b_priority = domain_class_b_priority;
 		*b_vid = domain_class_b_vid;
 	}
-	return domain_a_valid && domain_b_valid ? 0 : -1;
+    return (domain_a_valid || domain_b_valid) ? 0 : -1;
 }
 
 int mrp_join_vlan()

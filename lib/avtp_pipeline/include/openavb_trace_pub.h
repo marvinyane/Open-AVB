@@ -47,7 +47,7 @@ https://github.com/benhoyt/inih/commit/74d2ca064fb293bc60a77b0bd068075b293cf175.
 #include "openavb_types_pub.h"
 
 // Uncomment AVB_TRACE_ON to enable tracing.
-//#define AVB_TRACE_ON				1
+#define AVB_TRACE_ON				1
 
 // Specific reporting modes
 #define AVB_TRACE_MODE_NONE			0
@@ -59,7 +59,7 @@ https://github.com/benhoyt/inih/commit/74d2ca064fb293bc60a77b0bd068075b293cf175.
 #define AVB_TRACE_MODE_DOC			6
 
 // One of the above reporting modes must be set here
-#define AVB_TRACE_MODE 				AVB_TRACE_MODE_NORMAL
+#define AVB_TRACE_MODE 				AVB_TRACE_MODE_NONE
 
 // Delta Stats Interval 
 #define AVB_TRACE_OPT_DELTA_STATS_INTERVAL		80000
@@ -69,7 +69,7 @@ https://github.com/benhoyt/inih/commit/74d2ca064fb293bc60a77b0bd068075b293cf175.
 //#define AVB_TRACE_OPT_FUNC_TIME_INTERVAL		100
 
 // Option to show file name
-//#define AVB_TRACE_OPT_SHOW_FILE_NAME			1
+#define AVB_TRACE_OPT_SHOW_FILE_NAME			1
 
 
 //#define AVB_TRACE_PRINTF(FMT, ...) fprintf(stderr, FMT, __VA_ARGS__)
