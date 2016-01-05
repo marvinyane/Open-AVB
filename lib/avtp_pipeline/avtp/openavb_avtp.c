@@ -529,7 +529,7 @@ static void avtpTryRx(avtp_stream_t *pStream)
 	hdr_info_t  hdrInfo;       // Ethernet header contents
 	U32         timeout;
 
-	while (!pBuf) {
+    while (!pBuf) {
 		if (!openavbMediaQUsecTillTail(pStream->pMediaQ, &timeout)) {
 			// No mediaQ item available therefore wait for a new packet
 			timeout = AVTP_MAX_BLOCK_USEC;

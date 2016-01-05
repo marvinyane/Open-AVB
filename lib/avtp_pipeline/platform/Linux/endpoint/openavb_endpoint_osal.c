@@ -271,6 +271,7 @@ openavbRC openavbSrpInitialize(strmAttachCb_t attachCb, strmRegCb_t registerCb,
 	int class_b_id, b_priority;
 	u_int16_t b_vid;
 
+#if 0
 	err = mrp_get_domain(&class_a_id,&a_priority, &a_vid, &class_b_id, &b_priority, &b_vid);
 	if (err) {
 		AVB_LOG_DEBUG("mrp_get_domain failed");
@@ -279,6 +280,14 @@ openavbRC openavbSrpInitialize(strmAttachCb_t attachCb, strmRegCb_t registerCb,
 
 	AVB_LOGF_INFO("detected domain Class A PRIO=%d VID=%04x...", a_priority, (int)a_vid);
 	AVB_LOGF_INFO("detected domain Class B PRIO=%d VID=%04x...", b_priority, (int)b_vid);
+#endif
+    domain_class_a_id = 6;
+    domain_class_a_priority = 3;
+    domain_class_a_vid = 2;
+
+    domain_class_b_id = 5;
+    domain_class_b_priority = 2;
+    domain_class_b_vid = 3;
 
 	err = mrp_register_domain(&domain_class_a_id, &domain_class_a_priority, &domain_class_a_vid);
 	if (err) {

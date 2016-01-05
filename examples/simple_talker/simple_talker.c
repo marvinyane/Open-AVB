@@ -583,6 +583,7 @@ int main(int argc, char *argv[])
 
 	}
 
+#if 0
 	rc = mrp_get_domain(ctx, class_a, class_b);
 	if (rc) {
 		printf("failed calling msp_get_domain()\n");
@@ -590,7 +591,12 @@ int main(int argc, char *argv[])
 	}
 	printf("detected domain Class A PRIO=%d VID=%04x...\n",class_a->priority,
 	       class_a->vid);
+#endif
 
+    // register domain fist?
+    class_a->id = 6;
+    class_a->priority = 3;
+    class_a->vid = 2;
 	rc = mrp_register_domain(class_a, ctx);
 	if (rc) {
 		printf("mrp_register_domain failed\n");

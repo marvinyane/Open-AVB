@@ -210,7 +210,7 @@ bool openavbIntfViewerRxCB(media_q_t *pMediaQ)
 				pPvtData->skipCountdown--;
 		  
 			if (pMediaQItem->dataLen && !pPvtData->skipCountdown) {
-				pPvtData->servicedCount++;
+                // pPvtData->servicedCount++;
 
 				if (pPvtData->viewType == VIEWER_MODE_DETAIL) {
 					U32 avtpTimestamp;
@@ -235,21 +235,25 @@ bool openavbIntfViewerRxCB(media_q_t *pMediaQ)
 					CLOCK_GETTIME64(OPENAVB_CLOCK_REALTIME, &nowTime);
 
 					if (avtpTimestampValid && nowTimestampValid) {
+
+                        // only valid mode?
+                        pPvtData->servicedCount++;
+
 						lateNS = nowTimestampTime - avtpTimestampTime;
-						if (lateNS > pPvtData->maxLateNS) {
+                                                                                                                                                                                                                                                                                                                                                                                                                                                		if (lateNS > pPvtData->maxLateNS) {
 							pPvtData->maxLateNS = lateNS;
 						}
 						pPvtData->accumLateNS += lateNS;
 						
 						if (pPvtData->servicedCount > 1) {
-							gapNS = nowTime - pPvtData->prevNowTime;
+                            gapNS = nowTime - pPvtData->prevNowTime;
 							if (gapNS > pPvtData->maxGapNS) {
 								pPvtData->maxGapNS = gapNS;
 							}
 							pPvtData->accumGapNS += gapNS;
 						}
 						pPvtData->prevNowTime = nowTime;
-						
+
 						if ((pPvtData->servicedCount % pPvtData->viewInterval) == 0) {
 							S32 lateAvg = pPvtData->accumLateNS / pPvtData->servicedCount;
 							S32 gapAvg = pPvtData->accumGapNS / (pPvtData->servicedCount - 1);

@@ -75,8 +75,8 @@ https://github.com/benhoyt/inih/commit/74d2ca064fb293bc60a77b0bd068075b293cf175.
 // Default log level, can override in source files
 #ifndef AVB_LOG_LEVEL
 //#define AVB_LOG_LEVEL AVB_LOG_LEVEL_ERROR 
-//#define AVB_LOG_LEVEL AVB_LOG_LEVEL_INFO 
-#define AVB_LOG_LEVEL AVB_LOG_LEVEL_STATUS 
+#define AVB_LOG_LEVEL AVB_LOG_LEVEL_INFO
+//#define AVB_LOG_LEVEL AVB_LOG_LEVEL_STATUS
 //#define AVB_LOG_LEVEL AVB_LOG_LEVEL_DEBUG
 //#define AVB_LOG_LEVEL AVB_LOG_LEVEL_VERBOSE
 #endif
